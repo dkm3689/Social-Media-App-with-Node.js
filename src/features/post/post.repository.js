@@ -4,6 +4,11 @@ import postModel from "./post.schema.js";
 export const createPostRepo = async (newPost) => {
     const post = new postModel(newPost);
     await post.save()
+
+    if(post) {
+        return { success: true, message: "Post Created Successfully", data: post }
+    }
+
     return post;
 }
 

@@ -8,7 +8,7 @@ export const userRegistrationRepo = async(userData) => {
     try{
         const newUser = new userModel(userData);
         await newUser.save();
-        return { success: true, res: newUser } ;
+        return { success: true, res: newUser };
     } catch (err) {
         return { success: false, error: { statusCode: 400, message: err } };
     }

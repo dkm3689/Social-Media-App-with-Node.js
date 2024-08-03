@@ -1,32 +1,100 @@
 import mongoose from "mongoose";
 import postModel from "./post.schema.js"; 
 
-export const createPostRepo = async (newPost) => {
-    const post = new postModel(newPost);
-    await post.save()
+export const createPostRepo = async (userId, caption, image, hashtags) => {
 
-    if(post) {
-        return { success: true, message: "Post Created Successfully", data: post }
+    try{
+        const post = new postModel({
+            user: userId,
+            caption: caption,
+            image: image,
+            hashtags: hashtags
+        });
+
+        await post.save()
+
+        if(!post) {
+            return { 
+                success: false
+            };
+        } else {
+            return {
+                success: true,
+                res: post
+            }
+        }
+    } catch(err) {
+        return {
+            success: false,
+            error: { statusCode: 400, message: err.message }
+        };
     }
-
-    return post;
+      
 }
 
 export const updatePostRepo = async (postId, newData) => {
-    const updatedPost = await postModel.findByIdAndUpdate(
-        postId, 
-        newData,
-        { new: true, runValidators: true }
-    );
-    return updatedPost;
-}
+
+    try{
+        const updatedPost = await postModel.findByIdAndUpdate(
+            postId, 
+            newData,
+            { new: true, runValidators: true }
+        );
+
+        if(!updatedPost) {
+            return {
+                success: false
+            };
+        } else {
+            return {
+                success: true, res: updatedPost 
+            };
+        }
+    } catch(err) {
+        return {
+            success: false,
+            error: { statusCode: 400, message: err.message }
+        }
+    }
+};
 
 export const findPostRepo = async (postId) => {
-    const post = await postModel.findById(postId);
-    return post;
+
+    try{
+        const post = await postModel.findById(postId);
+
+        if(!post) {
+            return {
+                success: false
+            };
+        } else {
+            return { success: true, res: post };
+        }
+    } catch(err) {
+        return { success: false, error: { statusCode: 400, message: err.message } };
+    }
+
 } 
 
 export const deletePostRepo = async (postId) => {
-    const deletedPost = await postModel.findByIdAndDelete(postId);
-    return deletePost;
+
+    try{
+        const deletedPost = await postModel.findByIdAndDelete(postId);
+       
+        if(deletedPost) {
+            return {
+                success: true, res: deletedPost
+            };
+        } else {
+            return {
+                success: false
+            };
+        }
+
+    } catch(err) {
+        return {
+            success: true,
+            error: { statusCode: 400, message: err.message } 
+        };
+    }
 }

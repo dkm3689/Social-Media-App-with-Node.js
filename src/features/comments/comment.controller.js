@@ -3,8 +3,17 @@ import { createCommentRepo, getCommentsByPostIdRepo } from "./comment.repository
 //create comment
 export const createComment = async (req, res, next) => {
     
-    const { postId, userId } = req.params;
-    const commentData = req.body;
+    const { commentData } = req.body;
+    const postId = req.params.postId;
+    const userId = req.user._id;
+
+    if( !postId || !commentData ) {
+        res.status(400).send({
+            success: false,
+            message: "Post ID and Comment Data are required"
+        });
+    }
+
    const resp = await createCommentRepo(postId, userId, commentData);
 
    try{ 
@@ -12,27 +21,29 @@ export const createComment = async (req, res, next) => {
             res.status(201).send({
                 success: true,
                 message: "Comment Created Successfully", 
-                data: resp
+                data: resp.res
                     });
             } else {
-            res.status(404).send({
+            res.status(400).send({
                 success: false,
                 message: "Post Not Found"
                 });
             }
     } catch(err) {
+        console.log(err);
         err.statusCode = err.statusCode || 400;
         err.message = err.message || "Error Creating Comment";
         next(err);
     }
 };
 
-
 //update comment
 export const updateComment = async (req, res, next) => {
 
-    const { postId, userId, commentId } = req.params;
-    const newComment = req.body;
+    const { newComment } = req.body;
+    const postId = req.params.postId;
+    const commentId = req.params.commentId;
+    const userId = req.user._id;
 
     const resp = await updateCommentRepo(postId, userId, commentId, newComment);
 
@@ -41,7 +52,7 @@ export const updateComment = async (req, res, next) => {
             res.status(201).send({
                 success: true,
                 message: "Comment Updated Successfully", 
-                data: resp
+                data: resp.res
                     });
             } else {
             res.status(404).send({
@@ -51,7 +62,7 @@ export const updateComment = async (req, res, next) => {
             }
     } catch(err) {
         err.statusCode = err.statusCode || 400;
-        err.message = err.message || "Error Creating Comment";
+        err.message = err.message || "Error Updating Comment";
         next(err);
     }
 
@@ -62,7 +73,7 @@ export const updateComment = async (req, res, next) => {
 //get comments
 export const getCommentsByPostId = async (req, res, next) => {
 
-    const { postId, commentId } = req.params.id;
+    const { postId, commentId } = req.params;
     const resp = await getCommentsByPostIdRepo(postId, commentId);
 
     try{
@@ -70,7 +81,7 @@ export const getCommentsByPostId = async (req, res, next) => {
             res.status(201).send({
                 success: true,
                 message: "Comment Found Successfully", 
-                data: resp
+                data: resp.res
                     });
             } else {
             res.status(404).send({
@@ -102,7 +113,7 @@ export const deleteComment = async(req, res, next) => {
             } else {
             res.status(404).send({
                 success: false,
-                message: "Post/Comment Not Found"
+                message: "Comment Not Found"
                 });
             }
     } catch(err) {

@@ -11,7 +11,6 @@ router.get("/like/:postId:", (req, res) => {
     getLikesPost(req, res);
 });
 
-
 router.post("/like/:commentId:", (req, res) => {
     toggleLikeComment(req, res);
 });

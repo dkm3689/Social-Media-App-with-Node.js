@@ -2,6 +2,73 @@ import mongoose from "mongoose";
 import { likeModel } from "./like.schema.js";
 import { postModel } from "../post/post.schema.js";
 import { userModel } from "../user/user.schema.js";
+import { commentModel } from "../comments/comment.schema.js";
+
+export const getLikesComment = async(commentId) => {
+
+  try{
+    const comment = await commentModel.findById(commentId);
+    // const user = await userModel.findById(userId);
+
+    const commentLikes = comment.likes;
+
+    if(commentLikes.length > 0) {
+      return {
+        success: true,
+        res: commentLikes
+      }
+      
+    } else {
+        return {
+          success: false
+        }
+    }
+  } catch(err) {
+        return {
+          success: false,
+          error: { statusCode: 400, message: "Error toggling like Post" }
+        }
+  }
+
+};
+
+
+
+export const getLikesPost = async(postId) => {
+
+  try{
+    const post = await postModel.findById(postId);
+    // const user = await userModel.findById(userId);
+
+    const postLikes = post.likes;
+
+    if(postLikes.length > 0) {
+      return {
+        success: true,
+        res: postLikes
+      }
+      
+    } else {
+        return {
+          success: false
+        }
+    }
+  } catch(err) {
+        return {
+          success: false,
+          error: { statusCode: 400, message: "Error toggling like Post" }
+        }
+  }
+
+
+};
+
+
+
+
+
+
+
 
 export const toggleLikePostRepo = async (postId, userId, likeOwnerId) => {
 

@@ -1,11 +1,15 @@
-import { userRegistrationRepo, userLoginRepo, updateUserPasswordRepo } from "./user.repository.js";
-import { getDetailsRepo, getAllDetailsRepo, updateDetailsRepo } from "./user.repository.js";
+import { userRegistrationRepo, 
+         userLoginRepo, 
+         updateUserPasswordRepo,
+         getDetailsRepo, 
+         getAllDetailsRepo, 
+         updateDetailsRepo
+        } from "./user.repository.js";
 import { customErrorHandler } from "../../middlewares/errorHandler.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 //getDetails, getAllDetails, updateDetails;
-
 
 export const getDetails = async (req, res, next) => {
 
@@ -13,7 +17,9 @@ export const getDetails = async (req, res, next) => {
 
     try{
         if(resp) {
-            res.status(200).json({ success: true, message: "User Details fetched successfully", res: resp.res });
+            res.status(200).json({ 
+                success: true, 
+                message: "User Details fetched successfully", res: resp.res });
         } else {
             res.status(400).send({
                 success: false,

@@ -4,7 +4,7 @@ import { postModel } from "../post/post.schema.js";
 import { userModel } from "../user/user.schema.js";
 import { commentModel } from "../comments/comment.schema.js";
 
-export const getLikesComment = async(commentId) => {
+export const getLikesCommentRepo = async(commentId) => {
 
   try{
     const comment = await commentModel.findById(commentId);
@@ -34,7 +34,7 @@ export const getLikesComment = async(commentId) => {
 
 
 
-export const getLikesPost = async(postId) => {
+export const getLikesPostRepo = async(postId) => {
 
   try{
     const post = await postModel.findById(postId);

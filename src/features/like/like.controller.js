@@ -1,4 +1,7 @@
-import { toggleLikePostRepo, toggleLikeCommentRepo } from "./like.repository.js";
+import { toggleLikePostRepo, 
+        toggleLikeCommentRepo, 
+        getLikesCommentRepo, 
+        getLikesPostRepo } from "./like.repository.js";
 
 
 export const getLikesComment = async (req, res, next) => {

@@ -1,8 +1,8 @@
-import mongoose from mongoose;
+import mongoose from "mongoose";
 
 const baseURL = process.env.MONGODB || "mongodb://localhost:27017";
 
-export const connect = async () => {
+export const connectToDB = async () => {
     try{
         await mongoose.connect(`mongoDB://${baseURL}//socialMedia`, {
             useNewUrlParser: true,

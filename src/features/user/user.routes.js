@@ -1,20 +1,22 @@
 import express from "express";
 import { getDetails, getAllDetails, updateDetails } from "./user.controller.js";
 
-const router = express.Router();
+const userRouter = express.Router();
 
-
-router.post("/users/get-details/:userId", (req, res) => {
+userRouter.post("/users/get-details/:userId", (req, res) => {
     getDetails(req, res);
 });
 
-router.post("/users/get-all-details/:userId", (req, res) => {
+userRouter.post("/users/get-all-details/:userId", (req, res) => {
     getAllDetails(req, res);
 });
 
-router.put("/users/update-details/:userId", (req, res) => {
+userRouter.put("/users/update-details/:userId", (req, res) => {
     updateDetails(req, res);
 });
+
+
+export default userRouter;
 
 
 // router.put("/users/logout", (req, res) => {

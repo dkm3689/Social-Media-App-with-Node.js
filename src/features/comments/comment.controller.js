@@ -1,4 +1,8 @@
-import { createCommentRepo, getCommentsByPostIdRepo } from "./comment.repository";
+import { createCommentRepo, 
+        updateCommentRepo, 
+        getCommentsByPostIdRepo, 
+        deleteCommentRepo
+     } from "./comment.repository";
 
 //create comment
 export const createComment = async (req, res, next) => {
@@ -101,7 +105,7 @@ export const getCommentsByPostId = async (req, res, next) => {
 //delete comment
 export const deleteComment = async(req, res, next) => {
     const { commentId} = req.params.commentId;
-    const resp = await deleteCommentRepository(commentId);
+    const resp = await deleteCommentRepo(commentId);
 
     try{
         if(resp.success) {

@@ -41,7 +41,10 @@ export const getAllDetails = async (req, res, next) => {
 
     try{
         if(resp) {
-            res.status(200).json({ success: true, message: "User's All Details fetched successfully", res: resp.res });
+            res.status(200).json({ 
+                success: true, 
+                message: "User's All Details fetched successfully", 
+                res: resp.res });
         } else {
             res.status(400).send({
                 success: false,
@@ -62,7 +65,11 @@ export const updateDetails = async (req, res, next) => {
     const resp = await updateDetailsRepo({ userId });
     try{
         if(resp) {
-            res.status(201).json({ success: true, message: "User Details Updated successfully", res: resp.res });
+            res.status(201).json({ 
+                success: true, 
+                message: "User Details Updated successfully", 
+                res: resp.res 
+            });
         } else {
             res.status(400).send({
                 success: false,
@@ -77,8 +84,6 @@ export const updateDetails = async (req, res, next) => {
 };
 
 
-
-
 //register login logout
 export const userRegistration = async (req, res, next) => {
     const { password } = req.body;
@@ -87,7 +92,11 @@ export const userRegistration = async (req, res, next) => {
 
     try{
         if(resp) {
-            res.status(201).json({ success: true, message: "User created successfully", res: resp.res });
+            res.status(201).json({ 
+                success: true, 
+                message: "User created successfully", 
+                res: resp.res 
+            });
         } else {
             res.status(400).send({
                 success: false,
@@ -154,7 +163,11 @@ export const updateUserPassword = async (req, res, next) => {
     try {
         const resp = await updateUserPasswordRepo( userId , newPassword);
         if(resp.success) {
-            res.status(201).json( {success: true, message: "password updated successfully", res: resp.res} );
+            res.status(201).json( {
+                success: true, 
+                message: "password updated successfully", 
+                res: resp.res
+            });
             } else {
                 res.status(400).send({
                     success: false,

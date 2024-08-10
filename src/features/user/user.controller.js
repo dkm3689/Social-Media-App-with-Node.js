@@ -13,6 +13,7 @@ import jwt from "jsonwebtoken";
 
 export const getDetails = async (req, res, next) => {
 
+    const { userId } = req.user._id;
     const resp = await getDetailsRepo({ userId });
 
     try{
@@ -37,6 +38,7 @@ export const getDetails = async (req, res, next) => {
 
 export const getAllDetails = async (req, res, next) => {
 
+    const { userId } = req.user._id;
     const resp = await getAllDetailsRepo({ userId });
 
     try{
@@ -62,7 +64,9 @@ export const getAllDetails = async (req, res, next) => {
 
 export const updateDetails = async (req, res, next) => {
 
-    const resp = await updateDetailsRepo({ userId });
+    const { userId } = req.user._id;
+    const { newData } = req.body;
+    const resp = await updateDetailsRepo( { userId, newData } );
     try{
         if(resp) {
             res.status(201).json({ 
@@ -88,6 +92,7 @@ export const updateDetails = async (req, res, next) => {
 export const userRegistration = async (req, res, next) => {
     const { password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 12);
+
     const resp = await userRegistrationRepo({ ...req.body, hashedPassword });
 
     try{
@@ -119,7 +124,8 @@ export const userRegistration = async (req, res, next) => {
 export const userLogin = async(req, res, next) => {
     // let { password } = req.body;
 
-   const resp = await userLoginRepo(req.body);
+    const { userId } = req.user._id;
+   const resp = await userLoginRepo(req.body, userId);
 
    try{
         if(resp.success) {

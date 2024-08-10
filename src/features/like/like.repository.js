@@ -60,11 +60,7 @@ export const getLikesPostRepo = async(postId) => {
         }
   }
 
-
 };
-
-
-
 
 
 

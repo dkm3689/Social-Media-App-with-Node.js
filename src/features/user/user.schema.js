@@ -32,6 +32,12 @@ const userSchema = new mongoose.Schema({
         },
     },
 
+    gender: {
+        type: String,
+        required: true,
+        enum: ["Male", "Female", "Other"]
+    },
+
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post"
@@ -40,7 +46,14 @@ const userSchema = new mongoose.Schema({
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post"
+    }],
+
+    loggedInUsers: [{
+        type: Map,
+        of: String,
+        default: new Map()
     }]
+
 });
 
 const userModel = mongoose.Schema("user", userSchema);

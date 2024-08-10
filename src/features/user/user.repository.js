@@ -20,8 +20,7 @@ export const userRegistrationRepo = async(userData) => {
 };
 
 
-
-export const userLoginRepo = async(userData) => {
+export const userLoginRepo = async(userData, userId) => {
 
     try{   
         const { email, password } = userData;
@@ -34,6 +33,7 @@ export const userLoginRepo = async(userData) => {
         } else {
             let passwordValidation = await compareHashedPassword(password, user.password);
             if(passwordValidation) {
+                userModel.loggedInUsers.set(userId, user.name);
                 return { success: true, res: user};
             } else {
                 return {

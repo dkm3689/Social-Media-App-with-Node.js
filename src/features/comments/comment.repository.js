@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { commentModel } from "./comment.schema.js";
 import { postModel } from "../post/post.schema.js";
-
+    
 //create comment
 export const createCommentRepo = async (postId, userId, commentData) => {
 

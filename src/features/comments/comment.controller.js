@@ -3,6 +3,7 @@ import { createCommentRepo,
         getCommentsByPostIdRepo, 
         deleteCommentRepo
      } from "./comment.repository";
+import { commentModel } from "./comment.schema";
 
 //create comment
 export const createComment = async (req, res, next) => {
@@ -46,8 +47,26 @@ export const updateComment = async (req, res, next) => {
 
     const { newComment } = req.body;
     const postId = req.params.postId;
-    const commentId = req.params.commentId;
     const userId = req.user._id;
+
+
+      // Check if the user is authorized to delete the comment
+      const { commentId } = req.params.commentId;
+      const comment = commentModel.findById(commentId);
+      const commentOwnerId = comment._id;
+      const postOwnerId = comment.post;
+  
+      //check if owner is authorized to update the commment
+  
+      if(userId !== commentOwnerId && userId !== postOwnerId) {
+          res.status(403).send({
+              success: false,
+              message: "Unauthorized to delete this comment"
+          });
+          return;
+      };
+  
+
 
     const resp = await updateCommentRepo(postId, userId, commentId, newComment);
 
@@ -104,7 +123,23 @@ export const getCommentsByPostId = async (req, res, next) => {
 
 //delete comment
 export const deleteComment = async(req, res, next) => {
+    // Check if the user is authorized to delete the comment
     const { commentId} = req.params.commentId;
+    const comment = commentModel.findById(commentId);
+    const commentOwnerId = comment._id;
+    const postOwnerId = comment.post;
+
+    const userId = req.user._id;
+
+    if(userId !== commentOwnerId && userId !== postOwnerId) {
+        res.status(403).send({
+            success: false,
+            message: "Unauthorized to delete this comment"
+        });
+        return;
+    }
+
+
     const resp = await deleteCommentRepo(commentId);
 
     try{

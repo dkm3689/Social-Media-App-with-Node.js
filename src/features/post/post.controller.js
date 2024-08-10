@@ -1,4 +1,8 @@
-import { createPostRepo, updatePostRepo, findPostRepo, deletePostRepo } from "./post.repository.js";
+import { createPostRepo, 
+        getPostsByUserIdRepo, 
+        updatePostRepo, 
+        findPostRepo, 
+        deletePostRepo } from "./post.repository.js";
 
 export const newPost = async (req, res, next) => {
 
@@ -11,7 +15,7 @@ export const newPost = async (req, res, next) => {
             res.status(201).send({
                 success: true,
                 message: "Post Created Successfully", 
-                data: resp
+                res: resp.res
         });
     }   else {
         res.status(400).send({
@@ -27,6 +31,24 @@ export const newPost = async (req, res, next) => {
     }
 };
 
+
+// Controller function to get posts by user ID
+export const getPostsByUserId = async (req, res) => {
+    const { userId } = req.params;
+
+    const result = await getPostsByUserIdRepo(userId);
+
+    if (result.success) {
+        res.status(200).json(result.res);
+    } else {
+        res.status(result.error.statusCode).json(result.error.message);
+    }
+};
+
+
+
+
+
 export const updatePost = async (req, res, next) => {
 
     const { postId } = req.params.id;
@@ -38,7 +60,7 @@ export const updatePost = async (req, res, next) => {
             res.status(200).send({
                 success: true,
                 message: "Post Updated Successfully", 
-                data: resp.res
+                res: resp.res
         });
     }   else {
             res.status(404).send({
@@ -65,7 +87,7 @@ export const getPosts = async (req, res, next) => {
             res.status(200).send({
             success: true,
             message: "Post Found Successfully", 
-            data: resp
+            res: resp
                 });
         }else {
             res.status(404).send({
@@ -91,7 +113,7 @@ export const deletePost = async (req, res, next) => {
             res.status(200).send({
                 success: true,
                 message: "Post Deleted Successfully", 
-                data: resp
+                res: resp
           });
         } else {
             res.status(404).send({

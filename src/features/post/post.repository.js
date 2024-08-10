@@ -32,6 +32,31 @@ export const createPostRepo = async (userId, caption, image, hashtags) => {
       
 }
 
+
+
+export const getPostsByUserIdRepo = async (userId) => {
+    try {
+        // Find all posts where the user field matches the provided userId
+        const posts = await postModel.find({ user: userId }).sort({ createdAt: -1 });
+
+        // Return success response with the list of posts
+        return {
+            success: true,
+            res: posts
+        };
+    } catch (err) {
+        // Handle and return error response
+        return {
+            success: false,
+            error: { statusCode: 400, message: err.message }
+        };
+    }
+};
+
+
+
+
+
 export const updatePostRepo = async (postId, newData) => {
 
     try{

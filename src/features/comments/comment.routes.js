@@ -1,7 +1,10 @@
 // createComment, updateComment, getCommentsByPostId, deleteComment
 
 import express from "express";
-import { createComment, updateComment, getCommentsByPostId, deleteComment } from "./comment.controller.js";
+import { createComment, 
+        updateComment, 
+        getCommentsByPostId, 
+        deleteComment } from "./comment.controller.js";
 
 const commentsRouter = express.Router();
 

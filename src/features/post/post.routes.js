@@ -1,5 +1,5 @@
 import express from "express";
-import { newPost, updatePost, getPost, deletePost } from "./post.controller.js";
+import { newPost, getPostsByUserId, updatePost, getPost, deletePost } from "./post.controller.js";
 
 const postRouter = express.Router();
 
@@ -10,6 +10,10 @@ const postRouter = express.Router();
 postRouter.post("/post/", (req, res) => {
     newPost(req, res);
 });
+
+postRouter.get("/posts/", (req, res) => {
+    getPostsByUserId(req, res);
+}); 
 
 postRouter.put("/post/:postId:", (req, res) => {
     updatePost(req, res);

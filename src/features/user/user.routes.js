@@ -7,7 +7,7 @@ userRouter.post("/users/get-details/:userId", (req, res) => {
     getDetails(req, res);
 });
 
-userRouter.post("/users/get-all-details/:userId", (req, res) => {
+userRouter.post("/users/get-all-details", (req, res) => {
     getAllDetails(req, res);
 });
 

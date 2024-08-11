@@ -3,7 +3,8 @@ import { userRegistrationRepo,
          updateUserPasswordRepo,
          getDetailsRepo, 
          getAllDetailsRepo, 
-         updateDetailsRepo
+         updateDetailsRepo,
+         logoutAllDevicesRepo
         } from "./user.repository.js";
 import { customErrorHandler } from "../../middlewares/errorHandler.js";
 import bcrypt from "bcrypt";
@@ -186,4 +187,22 @@ export const updateUserPassword = async (req, res, next) => {
             err.message = err.message || "Error Updating Password";
             next(err);
         }  
+};
+
+
+
+
+// Controller function for logging out from all devices
+export const logoutAllDevices = async (req, res) => {
+    try {
+        const userId = req.user._id; // Assuming the user ID is attached to the request object from authentication middleware
+        
+        // Call the repository function
+        const user = await logoutAllDevicesRepo(userId);
+        
+        // Send a response back to the client
+        res.status(200).json({ message: 'Logged out from all devices successfully', user });
+    } catch (err) {
+        res.status(500).json({ message: `Failed to logout from all devices: ${err.message}` });
+    }
 };

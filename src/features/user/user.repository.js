@@ -146,3 +146,28 @@ export const updateDetailsRepo = async({ userId, newData }) => {
         };
     }
 };
+
+
+
+
+
+
+// Function to logout user from all devices
+export const logoutAllDevicesRepo = async (userId) => {
+    try {
+        // Find the user by their ID and update their tokens or sessions
+        const result = await User.findByIdAndUpdate(
+            userId,
+            { $set: { tokens: [] } }, // Assuming tokens are stored in an array
+            { new: true } // Return the modified document
+        );
+        
+        if (!result) {
+            throw new Error('User not found');
+        }
+        
+        return result;
+    } catch (err) {
+        throw new Error(`Error logging out all devices: ${err.message}`);
+    }
+};

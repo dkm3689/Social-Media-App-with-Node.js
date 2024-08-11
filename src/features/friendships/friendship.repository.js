@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { friendshipModel } from "./friendship.schema.js";
+import friendshipModel from "./friendship.schema.js";
 
 // Get all friends of a user
 export const getFriendsByUserIdRepo = async (userId) => {

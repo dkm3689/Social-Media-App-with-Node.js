@@ -16,7 +16,7 @@ commentsRouter.post( "/comments/:postId:", (req, res) => {
     createComment(req, res);
 });
 
-router.delete( "/comments/:commentId:", (req, res) => {
+commentsRouter.delete( "/comments/:commentId:", (req, res) => {
     deleteComment(req, res);
 });
 

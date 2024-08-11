@@ -2,8 +2,8 @@ import { createCommentRepo,
         updateCommentRepo, 
         getCommentsByPostIdRepo, 
         deleteCommentRepo
-     } from "./comment.repository";
-import { commentModel } from "./comment.schema";
+     } from "./comment.repository.js";
+import { commentModel } from "./comment.schema.js";
 
 //create comment
 export const createComment = async (req, res, next) => {

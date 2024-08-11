@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const commentSchema = new mongoose.schema ({
+const commentSchema =  new mongoose.Schema ({
 
     content: {
         type: String,
@@ -10,14 +10,14 @@ const commentSchema = new mongoose.schema ({
 
     //the one who commented
     user: {
-        type: mongoose.Schema.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "user",
         required: true
     },
 
     //post on which comment is made
     post: {
-        type: mongoose.Schema.types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "post",
         required: true
     },
@@ -35,4 +35,4 @@ const commentSchema = new mongoose.schema ({
     }
 });
 
-export const commentModel = new mongoose.model("comment", commentSchema);
+export const commentModel = mongoose.model("comment", commentSchema);

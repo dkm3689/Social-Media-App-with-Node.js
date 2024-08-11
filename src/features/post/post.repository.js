@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import postModel from "./post.schema.js"; 
+import { postModel } from "./post.schema.js"; 
 
 export const createPostRepo = async (userId, caption, image, hashtags) => {
 

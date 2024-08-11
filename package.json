@@ -1,7 +1,24 @@
 {
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "errorhandler": "^1.5.1",
     "express": "^4.19.2",
-    "mongoose": "^8.5.2"
-  }
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.5.2",
+    "nodemailer": "^6.9.14"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "rest-api-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "Rest Api backend project",
+  "type": "module"
 }

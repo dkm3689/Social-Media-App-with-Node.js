@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.generateOTPRepo = async (email) => {
+export const generateOTPRepo = async (email) => {
 
   try {
     const otp = crypto.randomInt(100000, 999999).toString();
@@ -36,7 +36,7 @@ exports.generateOTPRepo = async (email) => {
 
 };
 
-exports.verifyOTPRepo = async (req, res) => {
+export const verifyOTPRepo = async (req, res) => {
   const { email, otp } = req.body;
   try {
     const otpRecord = await OTPModel.findOne({ email });

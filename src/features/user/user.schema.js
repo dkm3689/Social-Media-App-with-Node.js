@@ -38,6 +38,11 @@ const userSchema = new mongoose.Schema({
         enum: ["Male", "Female", "Other"]
     },
 
+    password: {
+        type: String,
+        required: true,
+    },
+
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Post"
@@ -56,5 +61,5 @@ const userSchema = new mongoose.Schema({
 
 });
 
-const userModel = mongoose.Schema("user", userSchema);
-export default userModel;
+const userModel = mongoose.model("user", userSchema);
+export  {userModel};

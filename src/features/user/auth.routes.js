@@ -3,20 +3,22 @@
 import { userRegistration, userLogin, userLogOut, logoutAllDevices } from "./user.controller.js";
 import express from "express";
 
-const router = express.Router();
+const authRouter = express.Router();
 
-router.post("/users/signup", (req, res) => {
+authRouter.post("/users/signup", (req, res) => {
     userRegistration(req, res);
 });
 
-router.post("/users/signin", (req, res) => {
+authRouter.post("/users/signin", (req, res) => {
     userLogin(req, res);
 });
 
-router.post("/users/logout", (req, res) => {
+authRouter.post("/users/logout", (req, res) => {
     userLogOut(req, res);
 });
 
-router.post("/users/logout-all-devices", (req, res) => {
+authRouter.post("/users/logout-all-devices", (req, res) => {
     logoutAllDevices(req, res);
 });
+
+export default authRouter;

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import userModel from "./user.schema.js";
+import { userModel } from "./user.schema.js";
 import { compareHashedPassword } from "../../util/hashPassword.js";
 
 export const userRegistrationRepo = async(userData) => {
